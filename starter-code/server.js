@@ -119,7 +119,7 @@ app.delete('/articles/:id', function(request, response) {
   });
 });
 
-// NOTE:
+// NOTE: The user sends an AJAX request for all articles to the server from Article.prototype.deleteRecord. Then the server forms that request into an SQL query to the database to destroy all articles, while still leaving the table. This a CRUD Destroy operation that goes through 2,3,4,5 on the diagram
 app.delete('/articles', function(request, response) {
   client.query(
     'DELETE FROM articles;'
@@ -132,7 +132,7 @@ app.delete('/articles', function(request, response) {
   });
 });
 
-// NOTE:
+// NOTE: Calling the function loadDB(), which is defined below
 loadDB();
 
 app.listen(PORT, function() {
@@ -142,7 +142,7 @@ app.listen(PORT, function() {
 
 //////// ** DATABASE LOADER ** ////////
 ////////////////////////////////////////
-// NOTE:
+// NOTE: The user sends an AJAX request for select count of all records from articles to the server from Article.fetchAll. Then the server forms that request into an SQL query to the database, if the result of the article row from our table is empty and doesn't contain data, it will parse the JSON file and insert the specified IDs into fields and  the 'values' into records, into new articles and creates a new database. This a CRUD Create operation that goes through 2,3,4,5 on the diagram
 function loadArticles() {
   client.query('SELECT COUNT(*) FROM articles')
   .then(result => {
@@ -162,7 +162,7 @@ function loadArticles() {
   })
 }
 
-// NOTE:
+// NOTE: The user sends an AJAX request for all articles to the server. Then the server forms that request into an SQL query to the database to initially create a table with the specified IDs and then calls the function loadArticles defined above. This a CRUD Create operation that goes through 2,3,4,5 on the diagram.
 function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
