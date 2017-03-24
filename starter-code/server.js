@@ -31,12 +31,12 @@ app.use(express.static('./public'));
 
 // REVIEW: Routes for requesting HTML resources
 
-// NOTE:
+// NOTE: The user sends an AJAX request to the server, which responds by sending back the file index.html. This is a CRUD read operation that goes through 2 and 5 in the drawing.
 app.get('/', function(request, response) {
   response.sendFile('index.html', {root: '.'});
 });
 
-// NOTE:
+// NOTE: The user sends an AJAX request to the server, which responds by sending back the file new.html. This is a CRUD read operation that goes through 2 and 5 in the drawing.
 app.get('/new', function(request, response) {
   response.sendFile('new.html', {root: '.'});
 });
@@ -55,7 +55,7 @@ app.get('/articles', function(request, response) {
   })
 });
 
-// NOTE:
+// NOTE: The user sends an AJAX request for all articles to the server from Article.prototype.insertRecord(). Then the server forms that request into an SQL query to the database to create the following values into the specified article ID's. This a CRUD Create operation that goes through 2,3,4,5 on the diagram
 app.post('/articles', function(request, response) {
   client.query(
     `INSERT INTO
@@ -79,7 +79,7 @@ app.post('/articles', function(request, response) {
   });
 });
 
-// NOTE:
+// NOTE: The user sends an AJAX request for all articles to the server from Article.prototype.updateRecord(). Then the server forms that request into an SQL query to the database to update the following values into the specified article ID's. This a CRUD Update operation that goes through 2,3,4,5 on the diagram
 app.put('/articles/:id', function(request, response) {
   client.query(
     `UPDATE articles
@@ -105,7 +105,7 @@ app.put('/articles/:id', function(request, response) {
   });
 });
 
-// NOTE:
+// NOTE: The user sends an AJAX request for all articles to the server from Article.prototype.deleteRecord. Then the server forms that request into an SQL query to the database to destroy the following values from the specified article ID's. This a CRUD Destroy operation that goes through 2,3,4,5 on the diagram
 app.delete('/articles/:id', function(request, response) {
   client.query(
     `DELETE FROM articles WHERE article_id=$1;`,
